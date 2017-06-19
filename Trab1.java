@@ -33,7 +33,6 @@ public class Trab1 {
         
  public static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
     private final static IntWritable one = new IntWritable(1);
-    private Text autorWord = new Text();
         
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String [] line = value.toString().split(":::"); // Campos separados por :::
@@ -41,8 +40,7 @@ public class Trab1 {
             for (String p: line[2].replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+")) {
                 // remove pontuação e números. 
                 if (p.length() > 2)
-                autorWord.set(a + "," + p); // chave = Autos + Palavra
-                context.write(autorWord, one);
+                context.write(new Text(a + "," + p), one);
             }
         }
     }
