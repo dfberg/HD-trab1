@@ -37,7 +37,7 @@ public class Trab1 {
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String [] line = value.toString().split(":::"); // Campos separados por :::
         for (String a : line[1].split("::")) { // Autores separados por ::
-            for (String p: line[2].replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+")) {
+            for (String p: line[2].replaceAll("[^a-zA-Z -]", "").toLowerCase().split("\\s+")) {
                 // remove pontuação e números. 
                 if (p.length() > 2)
                 context.write(new Text(a + "," + p), one);
